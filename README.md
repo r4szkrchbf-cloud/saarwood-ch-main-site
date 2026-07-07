@@ -31,3 +31,7 @@ npm run build
 - This repository is not the teleprompter app.
 - The live domain should point here, not to the teleprompter monorepo.
 - Keep admin functionality in the separate adminpanel repository.
+
+## Current Status
+
+- `docs/PROJECT_STATUS_DE_2026-07-07.md`

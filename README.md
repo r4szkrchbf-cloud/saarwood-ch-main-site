@@ -35,3 +35,7 @@ npm run build
 ## Current Status
 
 - `docs/PROJECT_STATUS_DE_2026-07-07.md`
+
+## TODO
+
+- `docs/TODO_DE.md`

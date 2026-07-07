@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import './App.css';
 
+type SitePath = '/' | '/impressum' | '/datenschutz';
+
 const offers = [
   {
     title: 'Teleprompter',
@@ -29,16 +31,86 @@ const contacts = [
 ];
 
 export function App() {
+  const pathname = (typeof window !== 'undefined' ? window.location.pathname.toLowerCase() : '/') as SitePath;
+  const sitePath: SitePath = pathname === '/impressum' || pathname === '/datenschutz' ? pathname : '/';
+
   useEffect(() => {
-    document.title = 'SAARwooD | Marke, Produkte, Kontakt';
+    const titleByPath: Record<SitePath, string> = {
+      '/': 'SAARwooD | Marke, Produkte, Kontakt',
+      '/impressum': 'SAARwooD | Impressum',
+      '/datenschutz': 'SAARwooD | Datenschutz',
+    };
+    const descriptionByPath: Record<SitePath, string> = {
+      '/': 'SAARwooD ist die oeffentliche Marken- und Produktseite fuer Teleprompter, Admin und weitere Saarwood-Apps.',
+      '/impressum': 'Impressum der SAARwooD Hauptseite mit Betreiber- und Kontaktangaben.',
+      '/datenschutz': 'Datenschutzhinweise fuer die SAARwooD Hauptseite und verbundene Dienste.',
+    };
+
+    document.title = titleByPath[sitePath];
     const description = document.querySelector('meta[name="description"]');
     if (description) {
-      description.setAttribute(
-        'content',
-        'SAARwooD ist die oeffentliche Marken- und Produktseite fuer Teleprompter, Admin und weitere Saarwood-Apps.',
-      );
+      description.setAttribute('content', descriptionByPath[sitePath]);
     }
-  }, []);
+  }, [sitePath]);
+
+  if (sitePath === '/impressum') {
+    return (
+      <div className="main-site legal-site">
+        <main className="legal-wrapper" aria-label="Impressum">
+          <h1>Impressum</h1>
+          <p>
+            Diese Seite enthaelt die Anbieterkennzeichnung fuer die SAARwooD Hauptseite. Die finalen Betreiberdaten sind vor dem finalen
+            Produktionsrelease verbindlich einzutragen.
+          </p>
+          <section className="legal-block">
+            <h2>Angaben gemaess TMG</h2>
+            <p>SAARwooD (Projektplattform)</p>
+            <p>Verantwortliche Stelle: Hans Manuel Angel</p>
+            <p>Kontakt: info@saarwood.ch</p>
+          </section>
+          <section className="legal-block">
+            <h2>Verantwortlich fuer Inhalte</h2>
+            <p>Hans Manuel Angel, Saarwood Plattformbetrieb</p>
+          </section>
+          <section className="legal-block">
+            <h2>Haftungshinweis</h2>
+            <p>
+              Trotz sorgfaeltiger inhaltlicher Kontrolle uebernehmen wir keine Haftung fuer Inhalte externer Links. Fuer den Inhalt verlinkter
+              Seiten sind ausschliesslich deren Betreiber verantwortlich.
+            </p>
+          </section>
+          <a className="cta" href="/">Zurueck zur Hauptseite</a>
+        </main>
+      </div>
+    );
+  }
+
+  if (sitePath === '/datenschutz') {
+    return (
+      <div className="main-site legal-site">
+        <main className="legal-wrapper" aria-label="Datenschutz">
+          <h1>Datenschutz</h1>
+          <p>
+            Diese Hinweise beschreiben die Datenverarbeitung auf der SAARwooD Hauptseite. Fuer produktbezogene Spezialfaelle gelten zusaetzlich
+            die Hinweise der jeweiligen Anwendung.
+          </p>
+          <section className="legal-block">
+            <h2>Verarbeitete Daten</h2>
+            <p>Beim Aufruf der Seite koennen technische Zugriffsdaten (z. B. IP, User-Agent, Zeitstempel) serverseitig protokolliert werden.</p>
+          </section>
+          <section className="legal-block">
+            <h2>Zweck der Verarbeitung</h2>
+            <p>Die Verarbeitung dient der sicheren Auslieferung der Seite, Fehleranalyse und Abwehr von Missbrauch.</p>
+          </section>
+          <section className="legal-block">
+            <h2>Kontakt und Betroffenenrechte</h2>
+            <p>Auskunfts-, Loesch- und Berichtigungsanfragen bitte an: privacy@saarwood.ch</p>
+          </section>
+          <a className="cta" href="/">Zurueck zur Hauptseite</a>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="main-site">
@@ -96,11 +168,13 @@ export function App() {
         <section className="panel legal-panel">
           <div>
             <h2>Impressum</h2>
-            <p>Saarwood Betreiberangaben und Kontakt werden hier zentral gepflegt.</p>
+            <p>Saarwood Betreiberangaben und Kontakt sind als eigene Unterseite ausformuliert.</p>
+            <a className="inline-link" href="/impressum">Impressum oeffnen</a>
           </div>
           <div>
             <h2>Datenschutz</h2>
-            <p>DSGVO-Hinweise, Cookies und Tracking-Basics werden auf dieser Seite koordiniert.</p>
+            <p>DSGVO-Hinweise fuer die Hauptseite sind als eigene Unterseite dokumentiert.</p>
+            <a className="inline-link" href="/datenschutz">Datenschutz oeffnen</a>
           </div>
           <div>
             <h2>Release</h2>
@@ -111,7 +185,11 @@ export function App() {
 
       <footer className="footer">
         <span>SAARwooD</span>
-        <span>Public site for brand, product and legal information</span>
+        <span>
+          <a className="inline-link" href="/impressum">Impressum</a>
+          {' | '}
+          <a className="inline-link" href="/datenschutz">Datenschutz</a>
+        </span>
       </footer>
     </div>
   );

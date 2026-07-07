@@ -158,6 +158,57 @@
   font-size: 0.95rem;
 }
 
+.inline-link {
+  color: #f2cb82;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.legal-site {
+  display: grid;
+  place-items: center;
+}
+
+.legal-wrapper {
+  width: min(860px, 100%);
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(19, 16, 15, 0.76);
+  padding: 28px;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.34);
+  display: grid;
+  gap: 16px;
+}
+
+.legal-wrapper h1 {
+  margin: 0;
+  letter-spacing: -0.04em;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+}
+
+.legal-wrapper p {
+  margin: 0;
+  line-height: 1.65;
+  color: rgba(247, 239, 232, 0.86);
+}
+
+.legal-block {
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.legal-block h2 {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  color: #caa66d;
+}
+
 @media (max-width: 920px) {
   .masthead,
   .card-grid,

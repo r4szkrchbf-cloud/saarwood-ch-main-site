@@ -2,6 +2,11 @@
 
 Separate public brand site for `saarwood.ch`.
 
+## Related Repositories
+
+- Teleprompter: https://github.com/r4szkrchbf-cloud/Saarwood-Telegramm
+- Adminpanel: https://github.com/r4szkrchbf-cloud/saarwood-app-technik-adminpanel
+
 ## Scope
 
 - public brand and product landing page
